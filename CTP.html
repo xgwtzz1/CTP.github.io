@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中華三民黨全球資訊網</title>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Serif TC', 'Songti SC', 'Times New Roman', serif;
+      background: #eef2f7;
+      color: #1a1a2e;
+      line-height: 1.8;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== 主視覺橫幅 ===== */
+    .banner {
+      background: linear-gradient(135deg, #0a1f3b 0%, #16335c 60%, #0a1f3b 100%);
+      padding: 50px 20px 40px;
+      text-align: center;
+      border-bottom: 3px solid #c9a84c;
+    }
+
+    /* 黨徽圖片容器 */
+    .emblem-container {
+      display: inline-block;
+      background: #fff;
+      padding: 12px 28px;
+      border-radius: 60px;
+      border: 3px solid #c9a84c;
+      box-shadow: 0 0 28px rgba(201, 168, 76, 0.45);
+      margin-bottom: 22px;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(201, 168, 76, 0.4); }
+      50%      { box-shadow: 0 0 36px rgba(201, 168, 76, 0.75); }
+    }
+
+    .emblem-container img {
+      display: block;
+      height: 90px;
+      width: auto;
+      max-width: 100%;
+    }
+
+    /* 圖片載入失敗時的替代顯示 */
+    .emblem-fallback {
+      display: none;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: #c9a84c;
+      color: #0a1f3b;
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 80px;
+      text-align: center;
+      border: 2px solid #f2efe6;
+    }
+
+    .banner h1 {
+      font-size: 36px;
+      color: #fff;
+      letter-spacing: 10px;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,.4);
+    }
+
+    .banner .motto {
+      font-size: 15px;
+      color: #e7d29c;
+      letter-spacing: 12px;
+      margin-bottom: 18px;
+    }
+
+    .banner .desc {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 14px;
+      color: #b8c7e0;
+      line-height: 1.9;
+    }
+
+    /* ===== 導航列 ===== */
+    .nav {
+      background: #0f2440;
+      border-bottom: 2px solid #c9a84c;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+    }
+    .nav a {
+      display: block;
+      padding: 14px 22px;
+      color: #c3cede;
+      font-size: 14px;
+      letter-spacing: 2px;
+      transition: background .2s, color .2s, border-color .2s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+    }
+    .nav a:hover {
+      color: #e7d29c;
+      background: rgba(201,168,76,.08);
+      border-bottom-color: #c9a84c;
+    }
+
+    /* ===== 主內容區 ===== */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    #about, #principles, #join { scroll-margin-top: 80px; }
+
+    .left-col h2 {
+      font-size: 22px;
+      color: #0a1f3b;
+      letter-spacing: 4px;
+      border-left: 5px solid #c9a84c;
+      padding-left: 14px;
+      margin-bottom: 18px;
+    }
+    .left-col p {
+      font-size: 15px;
+      color: #2a3a50;
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    .left-col ul {
+      padding-left: 22px;
+      margin-bottom: 20px;
+    }
+    .left-col li {
+      font-size: 15px;
+      color: #2a3a50;
+      margin-bottom: 8px;
+    }
+    .left-col li strong { color: #0a1f3b; }
+
+    .quote-block {
+      background: #f5f0e1;
+      border-left: 5px solid #c9a84c;
+      padding: 18px 22px;
+      margin: 24px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .quote-block p {
+      font-style: italic;
+      color: #4a3f2a;
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+    .quote-block .author {
+      text-align: right;
+      color: #8a7a4a;
+      font-size: 13px;
+      font-style: normal;
+    }
+
+    /* ===== 右欄：入黨申請 ===== */
+    .right-col .card {
+      background: #fff;
+      border: 1px solid #d5dce8;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(10,31,59,.08);
+    }
+    .card-header {
+      background: #0a1f3b;
+      padding: 18px 22px;
+      border-bottom: 3px solid #c9a84c;
+    }
+    .card-header h3 {
+      color: #e7d29c;
+      font-size: 17px;
+      letter-spacing: 4px;
+      font-weight: 600;
+    }
+    .card-header p {
+      color: #8ba2c4;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+    }
+    .card-body { padding: 22px; }
+
+    .mail-notice {
+      background: #f0f6ff;
+      border: 1px dashed #4a7ab5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #2a4a70;
+      line-height: 1.7;
+    }
+    .mail-notice strong {
+      color: #0a1f3b;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      color: #0a1f3b;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #c5d0e0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1a1a2e;
+      background: #fafbfd;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #c9a84c;
+      box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+      background: #fff;
+    }
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background: #0a1f3b;
+      color: #e7d29c;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .25s, transform .15s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover {
+      background: #16335c;
+      transform: translateY(-1px);
+    }
+
+    .card-note {
+      font-size: 11px;
+      color: #8a94a6;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    /* ===== 底部 ===== */
+    .footer {
+      background: #0a1f3b;
+      border-top: 3px solid #c9a84c;
+      padding: 30px 20px 24px;
+      text-align: center;
+    }
+    .footer .motto {
+      font-size: 14px;
+      color: #e7d29c;
+      letter-spacing: 8px;
+      margin-bottom: 14px;
+    }
+    .footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .footer .links a {
+      color: #8ba2c4;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: color .2s;
+      cursor: pointer;
+    }
+    .footer .links a:hover { color: #e7d29c; }
+    .footer .copy {
+      font-size: 11px;
+      color: #4d5f7a;
+      line-height: 2;
+    }
+
+    /* ===== 響應式 ===== */
+    @media (max-width: 860px) {
+      .main { grid-template-columns: 1fr; }
+      .nav .inner { flex-wrap: wrap; justify-content: center; }
+      .nav a { padding: 10px 16px; font-size: 13px; }
+      .banner h1 { font-size: 26px; letter-spacing: 6px; }
+      .banner .motto { font-size: 13px; letter-spacing: 8px; }
+      .emblem-container img { height: 70px; }
+    }
+    @media (max-width: 480px) {
+      .banner h1 { font-size: 22px; letter-spacing: 4px; }
+      .banner .motto { font-size: 11px; letter-spacing: 5px; }
+      .emblem-container img { height: 55px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 主視覺橫幅 -->
+  <header class="banner" id="top">
+    
+    <!-- 黨徽圖片 -->
+    <div class="emblem-container">
+      <img src="emblem.jpg" alt="中華三民黨黨徽"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div class="emblem-fallback">三</div>
+    </div>
+
+    <h1>中華三民黨</h1>
+    <div class="motto">民主 · 民權 · 民生</div>
+    <p class="desc">
+      以三民主義為立黨之本，以民主為奮鬥目標，以人民福祉為最終依歸。
+    </p>
+  </header>
+
+  <!-- 導航列 -->
+  <nav class="nav">
+    <div class="inner">
+      <a href="#top">首頁</a>
+      <a href="#about">關於本黨</a>
+      <a href="#principles">基本主張</a>
+      <a href="#join">入黨申請</a>
+    </div>
+  </nav>
+
+  <!-- 主內容 -->
+  <div class="main">
+    <div class="left-col">
+      <h2 id="about">關於本黨</h2>
+      <p>中華三民黨誕生於民族危難之際，以實現孫中山先生的三民主義為最高綱領。本黨深信，唯有民族獨立、民主普及、民生均富，方能建立長治久安的現代國家。</p>
+      <p>本黨不是一時一地的政治團體，而是承載百年理想、跨越世代的志業共同體。我們主張以和平、理性、法治的方式推動國家統一，以憲政體制保障人民權利，以計劃經濟與市場機制並行促進社會繁榮。</p>
+
+      <h2 id="principles">基本主張</h2>
+      <ul>
+        <li><strong>民主主義：</strong>反對共産主義與帝國主義，主張中華民族自求解放，國內各民族一律平等。</li>
+        <li><strong>民權主義：</strong>實行權能區分，政權歸於人民，治權付諸政府，以五權憲法為框架。</li>
+        <li><strong>民生主義：</strong>節制資本，平均地權，耕者有其田，建立均富的社會經濟體系。</li>
+      </ul>
+
+      <div class="quote-block">
+        <p>「三民主義為救國主義，亦即為建國主義。吾人今日之努力，即在實現此一理想。」</p>
+        <div class="author">—— 總理 孫中山</div>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="card" id="join">
+        <div class="card-header">
+          <h3>入黨申請</h3>
+          <p>JOIN US · 歡迎有志之士加入</p>
+        </div>
+        <div class="card-body">
+          <div class="mail-notice">
+            請填寫以下資料，點擊按鈕後<br>
+            將自動開啟郵件軟體寄送至<br>
+            <strong>xgwtzz@qq.com</strong>
+          </div>
+          <form onsubmit="sendMail(event)">
+            <div class="field">
+              <label for="name">姓名</label>
+              <input type="text" id="name" placeholder="請輸入您的姓名" required>
+            </div>
+            <div class="field">
+              <label for="contact">聯絡方式</label>
+              <input type="text" id="contact" placeholder="手機號碼或電子郵件" required>
+            </div>
+            <div class="field">
+              <label for="region">所屬地區</label>
+              <input type="text" id="region" placeholder="例如：台北市" required>
+            </div>
+            <div class="field">
+              <label for="reason">入黨動機（選填）</label>
+              <textarea id="reason" placeholder="簡單說說想加入的原因……"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">發送申請郵件</button>
+            <p class="card-note">請發送郵件申請入黨。</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="motto">民主 · 民權 · 民生</div>
+    <div class="links">
+      <a href="#about">關於本黨</a>
+      <a href="#principles">基本主張</a>
+      <a href="#join">入黨申請</a>
+    </div>
+    <div class="copy">
+      © 2026 中華三民黨全球資訊網
+    </div>
+  </footer>
+
+  <script>
+    function sendMail(e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var contact = document.getElementById('contact').value.trim();
+      var region = document.getElementById('region').value.trim();
+      var reason = document.getElementById('reason').value.trim();
+      if (!name || !contact || !region) {
+        alert('請填寫姓名、聯絡方式與所屬地區。');
+        return;
+      }
+      var subject = '入黨申請 — ' + name;
+      var body = '中華三民黨入黨申請\n'
+               + '--------------------\n'
+               + '姓名：' + name + '\n'
+               + '聯絡方式：' + contact + '\n'
+               + '所屬地區：' + region + '\n'
+               + '入黨動機：' + (reason || '（未填寫）') + '\n'
+               + '--------------------\n'
+               + '申請時間：' + new Date().toLocaleString('zh-TW');
+      window.location.href = 'mailto:xgwtzz@qq.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+    }
+  </script>
+
+</body>
+</html>
